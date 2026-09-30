@@ -1,0 +1,2481 @@
+/* Claude Prompt*/
+
+# MASTER BUILD PROMPT
+
+# AI COMPANY INTELLIGENCE & DAILY RESEARCH PLATFORM
+
+You are acting as a combined:
+
+* Senior Fintech Product Architect
+* AI Agent Architect
+* Financial Data Engineer
+* Equity Research Analyst
+* Quantitative Researcher
+* Full-Stack Engineer
+* Data Platform Architect
+* UX/Product Designer
+* Startup CTO
+* DevOps Engineer
+* Fintech Regulatory Researcher
+
+Your job is to help me design, build, test and deploy a real production-ready MVP of an **AI Company Intelligence Platform**.
+
+This is NOT intended to be another stock screener, financial-news aggregator, portfolio tracker or generic ChatGPT wrapper.
+
+The core product is:
+
+> **"What materially changed about this company, why does it matter, where is the company getting ahead or falling behind, and what should I watch next?"**
+
+The answer should normally take:
+
+* **30–60 seconds to read**
+* **30–90 seconds to listen**
+
+The system should work initially for:
+
+🇮🇳 India
+🇺🇸 United States
+🇬🇧 United Kingdom
+
+and be architected so it can expand globally.
+
+---
+
+# 1. PRODUCT VISION
+
+Build a platform where a user can enter or speak the name of a publicly listed company.
+
+Example:
+
+> Kinetic Engineering Ltd
+
+or:
+
+> "Give me today's update on Kinetic Engineering."
+
+The platform should identify the correct listed company and automatically research the latest publicly available information.
+
+It should then produce a concise, evidence-backed intelligence report covering the most important developments.
+
+The platform should answer:
+
+### WHAT HAPPENED?
+
+### WHY DOES IT MATTER?
+
+### WHERE IS THE COMPANY MAKING PROGRESS?
+
+### WHERE IS IT FALLING BEHIND?
+
+### WHAT SHOULD I WATCH NEXT?
+
+The product is designed for:
+
+* Individual investors
+* Retail traders
+* Long-term investors
+* HNIs
+* Family offices
+* Equity research analysts
+* Institutional investors
+* Asset managers
+* Banks
+* Financial institutions
+* Research departments
+* Financial advisors
+* Corporate strategy/research teams
+
+---
+
+# 2. CORE PRODUCT PRINCIPLE
+
+DO NOT build an LLM that simply searches the internet and writes a paragraph.
+
+Build a structured intelligence pipeline:
+
+COMPANY INPUT
+↓
+ENTITY RESOLUTION
+↓
+COMPANY PROFILE
+↓
+SOURCE DISCOVERY
+↓
+DATA COLLECTION
+↓
+DOCUMENT EXTRACTION
+↓
+EVENT EXTRACTION
+↓
+DATE/FRESHNESS CHECK
+↓
+COMPANY MATCHING
+↓
+DUPLICATE REMOVAL
+↓
+SOURCE CREDIBILITY
+↓
+CROSS-SOURCE VERIFICATION
+↓
+MATERIALITY ANALYSIS
+↓
+HISTORICAL COMPARISON
+↓
+MANAGEMENT PROMISE TRACKING
+↓
+COMPANY PROGRESS ANALYSIS
+↓
+INDUSTRY/COMPETITOR CONTEXT
+↓
+AI SYNTHESIS
+↓
+CITATIONS
+↓
+TEXT REPORT
+↓
+VOICE REPORT
+
+This architecture is extremely important.
+
+The AI model should be the **reasoning and synthesis layer**, not the primary database.
+
+---
+
+# 3. LONG-TERM PRODUCT
+
+The long-term vision is:
+
+## COMPANY INTELLIGENCE
+
+→
+
+## PORTFOLIO INTELLIGENCE
+
+→
+
+## MARKET INTELLIGENCE
+
+Eventually users should be able to ask:
+
+> "What changed in Kinetic Engineering today?"
+
+> "What changed in all 20 companies I follow?"
+
+> "Which companies in my watchlist have major developments?"
+
+> "What changed in India's automobile industry?"
+
+> "Which companies are increasing capex?"
+
+> "Which companies are beating their own management guidance?"
+
+> "Which companies have new large customers?"
+
+> "Which companies are showing deteriorating cash flow?"
+
+> "Compare Kinetic Engineering with its competitors."
+
+The architecture must support this evolution.
+
+---
+
+# 4. USER EXPERIENCE
+
+The homepage should be extremely simple.
+
+Display:
+
+# "What company do you want to understand today?"
+
+Input:
+
+### TEXT
+
+Example:
+
+Kinetic Engineering Ltd
+
+### VOICE
+
+🎤 Speak
+
+Example:
+
+> "Give me today's update on Kinetic Engineering."
+
+Also allow natural-language queries:
+
+> "What changed at Kinetic Engineering this week?"
+
+> "What are the latest developments at NVIDIA?"
+
+> "Why is Apple in the news today?"
+
+> "What should I know about Tata Motors?"
+
+---
+
+# 5. COMPANY IDENTIFICATION
+
+When the user enters:
+
+> Kinetic Engineering
+
+the system must resolve:
+
+* Legal company name
+* Country
+* Exchange
+* Ticker
+* ISIN where available
+* Sector
+* Industry
+* Primary website
+* Investor relations page
+
+The system must prevent incorrect company matching.
+
+If multiple companies have similar names, show:
+
+| Company | Country | Exchange | Ticker |
+| ------- | ------- | -------- | ------ |
+
+and ask the user to select the correct one.
+
+Never silently select an ambiguous company.
+
+---
+
+# 6. MARKETS
+
+Initial support:
+
+## INDIA
+
+* NSE
+* BSE
+* SEBI-related public disclosures
+* Company investor relations
+* Exchange announcements
+
+## USA
+
+* NYSE
+* Nasdaq
+* SEC
+* Company investor relations
+
+## UK
+
+* London Stock Exchange
+* FCA/RNS
+* Companies House where relevant
+* Company investor relations
+
+Design the database generically:
+
+Country
+→ Exchange
+→ Security
+→ Company
+→ Instrument
+
+Do not hard-code India-specific assumptions into the core architecture.
+
+---
+
+# 7. DATA SOURCES
+
+The research engine should collect information from multiple source categories.
+
+## SOURCE CATEGORY 1 — REGULATORY / EXCHANGE
+
+Highest priority.
+
+India:
+
+* NSE
+* BSE
+* SEBI/public disclosures
+
+USA:
+
+* SEC
+* NYSE
+* Nasdaq
+
+UK:
+
+* LSE
+* FCA/RNS
+* Companies House where relevant
+
+Look for:
+
+* Results
+* Filings
+* Corporate announcements
+* Board meetings
+* Acquisitions
+* Dividends
+* Buybacks
+* Fundraising
+* Shareholding
+* Insider transactions
+* Corporate actions
+* Regulatory actions
+* Material contracts
+* Capital expenditure
+* Guidance
+* Management changes
+
+---
+
+# 8. OFFICIAL COMPANY SOURCES
+
+Search:
+
+* Official website
+* Investor relations
+* News
+* Press releases
+* Investor presentations
+* Annual reports
+* Quarterly results
+* Earnings releases
+* Management commentary
+* Product announcements
+* New facility announcements
+* Order announcements
+* Partnerships
+* Customer announcements
+* Hiring announcements
+
+Official company sources should be treated as primary sources for what the company itself has stated.
+
+However:
+
+A company claim is not automatically an independently verified fact.
+
+Clearly distinguish:
+
+> "The company stated..."
+
+from independently verified information.
+
+---
+
+# 9. COMPANY LINKEDIN
+
+Where publicly accessible, collect relevant information from:
+
+* Company LinkedIn page
+* Executive LinkedIn posts
+* Product announcements
+* New facility announcements
+* Partnerships
+* Certifications
+* Hiring
+* Customer announcements
+
+LinkedIn information should be classified as:
+
+### COMPANY SOCIAL UPDATE
+
+Do not automatically treat it as independently verified.
+
+---
+
+# 10. INDUSTRY MEDIA
+
+Dynamically determine the company's industry and search relevant publications.
+
+Examples:
+
+Automotive → automotive publications
+
+Semiconductor → semiconductor publications
+
+Pharma → pharmaceutical publications
+
+Energy → energy publications
+
+Banking → banking/financial publications
+
+Manufacturing → manufacturing publications
+
+Technology → technology publications
+
+etc.
+
+Do not use a single fixed media list for every company.
+
+---
+
+# 11. GENERAL FINANCIAL MEDIA
+
+Where relevant, search:
+
+* Reuters
+* Bloomberg where accessible
+* Financial Times
+* CNBC
+* Yahoo Finance
+* MarketWatch
+* Investing.com
+* Economic Times
+* Moneycontrol
+* Mint
+* Business Standard
+* Other reputable financial publications
+
+Also discover smaller credible industry publications.
+
+---
+
+# 12. SOCIAL MEDIA
+
+Where publicly accessible:
+
+* LinkedIn
+* X/Twitter
+* YouTube
+* Company blogs
+* Executive posts
+
+Potentially useful for early signals.
+
+But classify them separately.
+
+Never turn an unverified social-media claim into a fact.
+
+For example:
+
+> "An unverified social-media post claims..."
+
+rather than:
+
+> "The company has won a major order."
+
+---
+
+# 13. SOURCE CREDIBILITY HIERARCHY
+
+Implement a source hierarchy.
+
+## TIER 1 — PRIMARY REGULATORY
+
+Examples:
+
+* SEC
+* NSE
+* BSE
+* LSE/RNS
+* FCA
+
+## TIER 2 — COMPANY PRIMARY SOURCES
+
+* Investor relations
+* Official press release
+* Official filings
+* Annual report
+* Earnings presentation
+
+## TIER 3 — MAJOR FINANCIAL MEDIA
+
+* Reuters
+* Bloomberg
+* FT
+* CNBC
+* etc.
+
+## TIER 4 — INDUSTRY PUBLICATIONS
+
+Industry-specific publications.
+
+## TIER 5 — COMPANY SOCIAL MEDIA
+
+LinkedIn
+X
+YouTube
+
+## TIER 6 — UNVERIFIED / COMMUNITY SOURCES
+
+Forums
+Social posts
+Other low-confidence sources
+
+Never present Tier 5 or Tier 6 as equivalent to a regulatory filing.
+
+---
+
+# 14. SOURCE GRAPH
+
+Create a structured relationship between:
+
+Company
+↔
+Event
+↔
+Source
+↔
+Date
+↔
+Industry
+↔
+Competitor
+↔
+Management statement
+
+Example:
+
+Kinetic Engineering
+→ Capacity expansion
+→ Company announcement
+→ 28 Sep 2026
+→ Automotive
+→ Competitor comparison
+→ Previous management guidance
+
+This should eventually become a proprietary **Company Intelligence Graph**.
+
+---
+
+# 15. COMPANY EVENT DATABASE
+
+This is one of the most important parts of the application.
+
+Do not only store articles.
+
+Extract structured events.
+
+Example:
+
+```json
+{
+  "company_id": "123",
+  "event_type": "capacity_expansion",
+  "event_date": "2026-09-28",
+  "announcement_date": "2026-09-28",
+  "description": "...",
+  "financial_impact": "...",
+  "source_type": "company_filing",
+  "source_url": "...",
+  "credibility": "high",
+  "materiality": "high"
+}
+```
+
+Possible event types:
+
+* New order
+* Customer win
+* Customer loss
+* Capacity expansion
+* New plant
+* Product launch
+* Acquisition
+* Divestiture
+* Partnership
+* Joint venture
+* Fundraising
+* Debt
+* Debt reduction
+* Capex
+* Management change
+* Promoter transaction
+* Insider transaction
+* Regulatory action
+* Litigation
+* Earnings
+* Margin change
+* Revenue change
+* Profit change
+* Cash flow change
+* Guidance
+* Guidance revision
+* Dividend
+* Buyback
+* Export expansion
+* Geographic expansion
+* Hiring
+* Technology development
+* Certification
+* Contract
+* Supply agreement
+* Competitor development
+
+Design the event taxonomy so it can be expanded.
+
+---
+
+# 16. COMPANY TIMELINE
+
+Every company should have a historical timeline.
+
+Example:
+
+### KINETIC ENGINEERING
+
+| Date   | Event                  | Category  | Materiality | Source         |
+| ------ | ---------------------- | --------- | ----------- | -------------- |
+| Sep 29 | New order              | Business  | High        | Company        |
+| Sep 25 | Capacity update        | Capex     | Medium      | Filing         |
+| Sep 20 | Industry demand update | Industry  | Medium      | Industry media |
+| Sep 10 | Results                | Financial | High        | Exchange       |
+
+Users should be able to switch:
+
+### 24 Hours
+
+### 7 Days
+
+### 30 Days
+
+### 90 Days
+
+### 1 Year
+
+### 3 Years
+
+---
+
+# 17. CHANGE DETECTION
+
+The core system should compare:
+
+### TODAY
+
+against:
+
+### YESTERDAY
+
+### LAST 7 DAYS
+
+### LAST 30 DAYS
+
+### LAST QUARTER
+
+### LAST YEAR
+
+Identify what actually changed.
+
+Avoid repeating old news every day.
+
+If nothing material changed:
+
+> "No material new developments were identified in the latest public sources."
+
+This is better than generating artificial content.
+
+---
+
+# 18. MANAGEMENT PROMISE TRACKER
+
+Create a proprietary feature:
+
+# MANAGEMENT PROMISE TRACKER
+
+Extract statements from:
+
+* Earnings calls
+* Investor presentations
+* Annual reports
+* Interviews
+* Company announcements
+* Management commentary
+
+Example:
+
+Management statement:
+
+> "We expect capacity to reach X by FY27."
+
+Store:
+
+* Statement
+* Date
+* Speaker
+* Expected deadline
+* Metric
+* Target
+* Source
+
+Then track future developments.
+
+Example:
+
+| Management Promise | Date     | Target     | Deadline | Latest Status |
+| ------------------ | -------- | ---------- | -------- | ------------- |
+| Capacity X         | Jun 2026 | 100K units | FY27     | Progressing   |
+
+Possible status:
+
+* On track
+* Completed
+* Progressing
+* Delayed
+* Missed
+* Revised
+* No recent evidence
+
+Only classify when evidence supports the classification.
+
+This feature should become a major product differentiator.
+
+---
+
+# 19. "WHERE IS THE COMPANY GETTING AHEAD?"
+
+Build an AI module specifically answering:
+
+# WHERE IS THE COMPANY GETTING AHEAD?
+
+Look for evidence in:
+
+* Revenue
+* Market share
+* Margins
+* Capacity
+* Orders
+* Customers
+* Products
+* Technology
+* Geography
+* Distribution
+* Cost efficiency
+* Debt reduction
+* Cash generation
+* Hiring
+* Partnerships
+* Manufacturing
+* Management execution
+
+Output evidence-backed points.
+
+Do not label something as "getting ahead" merely because management claims it.
+
+---
+
+# 20. "WHERE IS THE COMPANY FALLING BEHIND?"
+
+Identify evidence of:
+
+* Missed guidance
+* Delayed projects
+* Margin deterioration
+* Debt increase
+* Working-capital deterioration
+* Cash-flow deterioration
+* Order cancellations
+* Customer concentration
+* Regulatory issues
+* Litigation
+* Capacity delays
+* Competitive pressure
+* Management execution gaps
+
+Again:
+
+Evidence first.
+
+No speculation.
+
+---
+
+# 21. COMPETITOR INTELLIGENCE
+
+Identify relevant competitors automatically.
+
+For Kinetic Engineering:
+
+determine relevant automotive competitors based on its actual business.
+
+Then compare:
+
+* Revenue growth
+* Margin
+* Capacity
+* New customers
+* Orders
+* Capex
+* Products
+* Technology
+* Industry exposure
+* Management guidance
+
+Eventually answer:
+
+> "Is this company's progress ahead of or behind relevant competitors?"
+
+Do not create simplistic "winner" rankings.
+
+Provide factual comparison.
+
+---
+
+# 22. INDUSTRY INTELLIGENCE
+
+The company should not be analyzed in isolation.
+
+For every company, identify:
+
+### Industry
+
+### Major industry trends
+
+### Regulatory changes
+
+### Commodity/input prices
+
+### Demand environment
+
+### Technology changes
+
+### Competitor activity
+
+### Supply-chain developments
+
+### Government policies
+
+Then determine:
+
+> "Which industry developments are relevant to this company?"
+
+---
+
+# 23. DAILY REPORT
+
+The primary output should be:
+
+# DAILY COMPANY INTELLIGENCE
+
+Example:
+
+## Kinetic Engineering Ltd
+
+**Market:** India
+**Exchange:** NSE/BSE
+**Industry:** Automotive
+**Updated:** 30 Sep 2026, 10:30 AM IST
+
+### 1. Major development
+
+What happened?
+
+### 2. Business impact
+
+Why does it matter?
+
+### 3. Financial development
+
+What changed?
+
+### 4. Management update
+
+What did management say?
+
+### 5. Industry development
+
+What changed around the company?
+
+### 6. Market activity
+
+What changed in the listed security?
+
+### 7. Progress
+
+Where is the company advancing?
+
+### 8. Risks
+
+What deserves attention?
+
+### 9. Management execution
+
+What previously stated objectives are progressing or changing?
+
+### 10. Watch next
+
+What should users monitor?
+
+Each item:
+
+* 1–3 sentences
+* Date
+* Source
+* Citation
+
+---
+
+# 24. FACT VS INTERPRETATION
+
+Separate:
+
+### FACT
+
+> Company announced a new manufacturing facility.
+
+### COMPANY CLAIM
+
+> Management expects the facility to increase capacity by X%.
+
+### EXTERNAL ANALYSIS
+
+> Industry publication estimates demand could increase.
+
+### AI INTERPRETATION
+
+> The development could be relevant to future capacity, but commissioning and utilization remain key variables.
+
+### UNVERIFIED
+
+> Social-media users are speculating about...
+
+Never mix these categories.
+
+---
+
+# 25. MATERIALITY ENGINE
+
+Every detected event should receive:
+
+### HIGH
+
+Potentially material to business/financial outlook.
+
+### MEDIUM
+
+Relevant but limited immediate impact.
+
+### LOW
+
+Informational/no meaningful financial implication.
+
+The daily report should prioritize:
+
+HIGH
++
+MEDIUM
+
+Avoid news overload.
+
+---
+
+# 26. WHY-IT-MATTERS ENGINE
+
+For each major event answer:
+
+### WHAT HAPPENED?
+
+### WHY DID IT HAPPEN?
+
+### WHY DOES IT MATTER?
+
+### WHAT COULD HAPPEN NEXT?
+
+Never jump directly from news to:
+
+> BUY
+
+> SELL
+
+> STRONG BUY
+
+> TARGET PRICE
+
+The initial product is a financial intelligence product, not a personalized recommendation engine.
+
+---
+
+# 27. INVESTOR MODES
+
+The same underlying intelligence engine should support multiple views.
+
+## QUICK MODE
+
+For retail investors.
+
+Output:
+
+5–10 concise points.
+
+## TRADER MODE
+
+Prioritize:
+
+* Market-moving announcements
+* Price
+* Volume
+* Corporate actions
+* News catalysts
+* Regulatory events
+
+## LONG-TERM INVESTOR MODE
+
+Prioritize:
+
+* Business growth
+* Financial quality
+* Management execution
+* Capital allocation
+* Competitive position
+* Industry trends
+
+## RESEARCH MODE
+
+More detailed:
+
+* Financial metrics
+* Filings
+* Management commentary
+* Historical events
+* Competitor analysis
+* Industry data
+
+## INSTITUTIONAL MODE
+
+Prioritize:
+
+* Material events
+* Guidance changes
+* Capital allocation
+* Ownership
+* Industry exposure
+* Risk
+* Management execution
+
+---
+
+# 28. VOICE INPUT
+
+Add microphone functionality.
+
+User:
+
+🎤 "Give me today's update on Kinetic Engineering."
+
+Pipeline:
+
+VOICE
+→ SPEECH TO TEXT
+→ COMPANY/QUERY DETECTION
+→ RESEARCH
+→ SUMMARY
+→ TEXT
+→ TEXT TO SPEECH
+
+---
+
+# 29. VOICE OUTPUT
+
+Provide:
+
+▶ Listen
+
+The voice report should sound like a professional research briefing.
+
+Example:
+
+> "Here are the three developments worth knowing about Kinetic Engineering today..."
+
+Allow:
+
+* Play
+* Pause
+* Replay
+* Speed
+* Download/share where appropriate
+
+---
+
+# 30. CONVERSATIONAL FOLLOW-UP
+
+After generating the report, allow:
+
+> "Tell me more about point 3."
+
+> "What was the previous management guidance?"
+
+> "Compare this with last quarter."
+
+> "What changed from last month?"
+
+> "What are competitors doing?"
+
+> "Show me the source."
+
+> "Explain this in simple language."
+
+The AI should use the structured company/event database rather than performing unnecessary new searches every time.
+
+---
+
+# 31. RESEARCH MEMORY
+
+The system should maintain a historical company knowledge base.
+
+For every company store:
+
+* Company profile
+* Events
+* Sources
+* Financial data
+* Management statements
+* Guidance
+* Products
+* Customers
+* Partnerships
+* Capex
+* Industry developments
+* Competitor developments
+
+This allows:
+
+> Today vs yesterday
+
+> Today vs 30 days ago
+
+> Today vs last quarter
+
+> Current management guidance vs previous guidance
+
+This historical context is a major product moat.
+
+---
+
+# 32. DATA MODEL
+
+Create database schemas for at least:
+
+### companies
+
+### securities
+
+### exchanges
+
+### countries
+
+### sectors
+
+### industries
+
+### sources
+
+### documents
+
+### articles
+
+### filings
+
+### events
+
+### event_sources
+
+### financial_metrics
+
+### management_statements
+
+### management_guidance
+
+### guidance_tracking
+
+### competitors
+
+### industry_events
+
+### market_data
+
+### company_daily_reports
+
+### users
+
+### watchlists
+
+### alerts
+
+### research_queries
+
+### citations
+
+### audio_reports
+
+Provide actual SQL schemas.
+
+Prefer PostgreSQL unless you have a compelling reason to use another database.
+
+---
+
+# 33. SOURCE DATA MODEL
+
+Each source should contain:
+
+```json
+{
+  "source_id": "",
+  "source_name": "",
+  "source_type": "",
+  "credibility_tier": 1,
+  "url": "",
+  "published_at": "",
+  "retrieved_at": "",
+  "author": "",
+  "company_id": "",
+  "content_hash": ""
+}
+```
+
+Use content hashes or equivalent techniques for duplicate detection.
+
+---
+
+# 34. EVENT DATA MODEL
+
+Example:
+
+```json
+{
+  "event_id": "",
+  "company_id": "",
+  "event_type": "",
+  "event_date": "",
+  "detected_at": "",
+  "title": "",
+  "description": "",
+  "materiality": "high",
+  "confidence": 0.94,
+  "source_ids": [],
+  "impact_areas": [],
+  "related_companies": []
+}
+```
+
+---
+
+# 35. RESEARCH PIPELINE
+
+Build the following pipeline:
+
+## STEP 1
+
+Resolve company.
+
+## STEP 2
+
+Retrieve company metadata.
+
+## STEP 3
+
+Generate dynamic search queries.
+
+## STEP 4
+
+Search primary sources.
+
+## STEP 5
+
+Search financial media.
+
+## STEP 6
+
+Search industry media.
+
+## STEP 7
+
+Search company social channels.
+
+## STEP 8
+
+Collect documents.
+
+## STEP 9
+
+Extract dates/entities/events.
+
+## STEP 10
+
+Remove duplicates.
+
+## STEP 11
+
+Score credibility.
+
+## STEP 12
+
+Cross-check important events.
+
+## STEP 13
+
+Store events.
+
+## STEP 14
+
+Compare with historical events.
+
+## STEP 15
+
+Compare management guidance.
+
+## STEP 16
+
+Analyze industry/competitors.
+
+## STEP 17
+
+Determine material developments.
+
+## STEP 18
+
+Generate report.
+
+## STEP 19
+
+Attach citations.
+
+## STEP 20
+
+Generate voice briefing.
+
+---
+
+# 36. CACHING
+
+Do not perform a complete web research cycle every time a user requests the same company.
+
+Implement:
+
+* Event caching
+* Source caching
+* Company metadata caching
+* Report caching
+* Search-result caching where legally and technically appropriate
+
+Example:
+
+If 500 users request Apple within 10 minutes, do not perform 500 identical research jobs.
+
+Generate one research update and reuse it where appropriate.
+
+---
+
+# 37. BACKGROUND WORKERS
+
+Design background processes for:
+
+* New company events
+* Source monitoring
+* Daily refresh
+* Event extraction
+* Deduplication
+* Management guidance tracking
+* Alert generation
+
+Possible architecture:
+
+API
++
+Worker
++
+Queue
++
+Database
+
+Keep MVP infrastructure simple.
+
+---
+
+# 38. TECHNOLOGY STACK
+
+Recommend a practical low-cost stack.
+
+Evaluate:
+
+## Frontend
+
+Next.js / React
+
+## Backend
+
+Python + FastAPI
+
+## Database
+
+PostgreSQL
+
+## Background jobs
+
+Celery/RQ/Redis or simpler alternative
+
+## Search
+
+PostgreSQL initially, with OpenSearch/Elasticsearch later if required.
+
+## AI
+
+Use an abstraction layer supporting:
+
+* OpenAI
+* Anthropic
+* Google
+* Other providers
+
+Do not hard-code business logic to one model.
+
+## Speech
+
+Speech-to-text API
+
+Text-to-speech API
+
+## Deployment
+
+Evaluate:
+
+* Hostinger VPS
+* Hetzner
+* DigitalOcean
+* Railway
+* Render
+* Cloudflare
+* Supabase
+
+Choose the lowest-cost architecture that can reliably support the MVP.
+
+---
+
+# 39. COST TARGET
+
+Initial target:
+
+### <$50/month
+
+Preferably:
+
+### <$25/month
+
+during early testing.
+
+Separate:
+
+### Fixed infrastructure costs
+
+from:
+
+### Variable AI/search/API costs.
+
+Estimate cost for:
+
+* 100 users
+* 1,000 users
+* 10,000 users
+* 100,000 users
+
+---
+
+# 40. HOSTINGER DEPLOYMENT
+
+The MVP must be deployable on a low-cost VPS.
+
+Provide exact instructions for:
+
+1. Server setup
+2. Linux
+3. Docker
+4. PostgreSQL
+5. Redis if required
+6. Backend
+7. Frontend
+8. Reverse proxy
+9. HTTPS
+10. Domain
+11. Environment variables
+12. Cron jobs
+13. Workers
+14. Logging
+15. Backups
+16. Monitoring
+
+If Hostinger is not appropriate for a component, use the cheapest suitable alternative.
+
+---
+
+# 41. SECURITY
+
+Implement:
+
+* Authentication
+* Authorization
+* API key protection
+* Rate limiting
+* Input validation
+* SQL injection protection
+* Secure secrets
+* HTTPS
+* Database backups
+* Logging
+* Abuse prevention
+
+Do not expose API keys to frontend code.
+
+---
+
+# 42. REGULATORY POSITIONING
+
+The initial product should primarily provide:
+
+* Public financial information
+* Company intelligence
+* Research
+* Data
+* Historical comparison
+* News analysis
+* Source aggregation
+* Evidence-based synthesis
+
+Do not assume the platform is automatically exempt from regulation.
+
+Research the current requirements for:
+
+### India
+
+SEBI and other relevant frameworks.
+
+### USA
+
+Applicable SEC/financial regulatory considerations.
+
+### UK
+
+FCA and applicable financial-promotion considerations.
+
+Clearly distinguish:
+
+### Information
+
+from:
+
+### Research
+
+from:
+
+### Personalized investment advice
+
+from:
+
+### Trade execution
+
+from:
+
+### Portfolio management.
+
+The initial product should avoid trade execution and personalized regulated recommendations.
+
+Include appropriate disclosures.
+
+---
+
+# 43. ANTI-HALLUCINATION
+
+This is a hard requirement.
+
+The system must NEVER invent:
+
+* Company announcements
+* Revenue
+* Profit
+* Orders
+* Customers
+* Partnerships
+* Management statements
+* Dates
+* Prices
+* Filings
+* Regulatory actions
+
+If something cannot be verified:
+
+> "I could not verify this from a reliable public source."
+
+Every material factual claim should be linked to one or more sources.
+
+---
+
+# 44. REPORT JSON
+
+The backend should produce structured JSON.
+
+Example:
+
+```json
+{
+  "company": {},
+  "market": {},
+  "generated_at": "",
+  "data_freshness": "",
+  "summary": [],
+  "major_developments": [],
+  "positive_developments": [],
+  "negative_developments": [],
+  "management_updates": [],
+  "management_guidance": [],
+  "industry_developments": [],
+  "competitor_developments": [],
+  "market_activity": [],
+  "progress": [],
+  "risks": [],
+  "watch_next": [],
+  "sources": []
+}
+```
+
+The frontend should render this structured data.
+
+Do not depend on parsing free-form LLM output.
+
+---
+
+# 45. API DESIGN
+
+Create APIs such as:
+
+```text
+POST /api/company/resolve
+
+POST /api/company/analyze
+
+GET /api/company/{id}
+
+GET /api/company/{id}/latest
+
+GET /api/company/{id}/timeline
+
+GET /api/company/{id}/events
+
+GET /api/company/{id}/guidance
+
+GET /api/company/{id}/competitors
+
+POST /api/search
+
+POST /api/voice/transcribe
+
+POST /api/voice/synthesize
+
+POST /api/watchlist
+
+GET /api/watchlist
+
+POST /api/alerts
+
+GET /api/reports/{id}
+```
+
+Provide request and response examples.
+
+---
+
+# 46. USER ACCOUNT
+
+MVP should support:
+
+* Email/social login if practical
+* Saved companies
+* Watchlist
+* Recent searches
+* Report history
+
+Do not require users to connect their brokerage account.
+
+The initial product should be useful without access to private financial information.
+
+---
+
+# 47. WATCHLIST
+
+Users can create:
+
+# MY COMPANIES
+
+Example:
+
+* Kinetic Engineering
+* NVIDIA
+* Apple
+* TCS
+* Reliance
+
+The platform should eventually generate:
+
+> "What changed across my watchlist today?"
+
+---
+
+# 48. ALERT SYSTEM
+
+Design future support for:
+
+* Major company announcement
+* Earnings
+* Management change
+* Large order
+* Acquisition
+* Fundraising
+* Regulatory event
+* Major industry event
+* Guidance change
+* Significant price movement
+
+Possible delivery:
+
+* Email
+* Web notification
+* WhatsApp
+* Telegram
+* Push notification
+
+---
+
+# 49. MVP SCOPE
+
+DO NOT attempt to build everything initially.
+
+The first public MVP should contain only:
+
+### 1. Company search
+
+### 2. Company resolution
+
+### 3. Multi-source research
+
+### 4. Latest event detection
+
+### 5. Historical event storage
+
+### 6. 5–10 point daily report
+
+### 7. Source citations
+
+### 8. Voice input
+
+### 9. Voice output
+
+### 10. Watchlist
+
+### 11. Basic report history
+
+That is enough for initial user testing.
+
+---
+
+# 50. INITIAL TEST COMPANY
+
+Use:
+
+# KINETIC ENGINEERING LTD
+
+as the first test.
+
+Run the complete workflow.
+
+The system should demonstrate:
+
+1. Company resolution
+2. Exchange identification
+3. Industry identification
+4. Primary sources
+5. Exchange/regulatory sources
+6. Financial media
+7. Industry publications
+8. LinkedIn/company updates where accessible
+9. Event extraction
+10. Event deduplication
+11. Materiality classification
+12. Historical comparison
+13. Management guidance tracking where available
+14. Progress analysis
+15. Risk analysis
+16. 5–10 point report
+17. Source citations
+18. Voice briefing
+19. "What should I watch next?"
+
+Do not fabricate missing information.
+
+---
+
+# 51. EXAMPLE OUTPUT
+
+The final UI should resemble:
+
+---
+
+# KINETIC ENGINEERING LTD
+
+🇮🇳 India | NSE/BSE | Automotive
+
+Updated:
+30 Sep 2026 — 10:35 AM IST
+
+## DAILY COMPANY INTELLIGENCE
+
+### 1. Major development
+
+[1–3 sentences]
+
+Source: [link]
+
+### 2. Financial development
+
+[1–3 sentences]
+
+Source: [link]
+
+### 3. Management update
+
+[1–3 sentences]
+
+Source: [link]
+
+### 4. Business progress
+
+[1–3 sentences]
+
+Source: [link]
+
+### 5. Industry development
+
+[1–3 sentences]
+
+Source: [link]
+
+### 6. Market activity
+
+[1–3 sentences]
+
+Source: [link]
+
+### 7. Management execution
+
+[1–3 sentences]
+
+Source: [link]
+
+### 8. Risk / concern
+
+[1–3 sentences]
+
+Source: [link]
+
+### 9. Where the company is progressing
+
+[1–3 sentences]
+
+### 10. Watch next
+
+[1–3 sentences]
+
+---
+
+🎧 LISTEN TO BRIEFING
+
+▶ 52 seconds
+
+---
+
+# SOURCES
+
+Source 1
+Source 2
+Source 3
+Source 4
+
+---
+
+# COMPANY TIMELINE
+
+24H | 7D | 30D | 90D | 1Y
+
+---
+
+# MANAGEMENT PROMISE TRACKER
+
+Previous guidance
+↓
+Latest development
+↓
+Current status
+
+---
+
+# 52. WHAT MAKES THIS DIFFERENT
+
+Do not position this as:
+
+❌ Yahoo Finance clone
+
+❌ Moneycontrol clone
+
+❌ Screener clone
+
+❌ Stock screener
+
+❌ News aggregator
+
+❌ Generic AI chatbot
+
+❌ ChatGPT wrapper
+
+The differentiated product is:
+
+# COMPANY INTELLIGENCE ENGINE
+
+The core intellectual property should eventually be the combination of:
+
+### 1. Company Event Database
+
+### 2. Company Intelligence Graph
+
+### 3. Historical Timeline
+
+### 4. Management Promise Tracker
+
+### 5. Source Credibility Graph
+
+### 6. Industry/Competitor Context
+
+### 7. AI Research Agent
+
+### 8. Daily Change Detection
+
+### 9. Personalized Watchlists
+
+### 10. Voice Research Interface
+
+This creates a continuously updated intelligence layer around every public company.
+
+---
+
+# 53. FUTURE MOAT
+
+Design toward a proprietary dataset containing:
+
+Company
+→ Event
+→ Source
+→ Date
+→ Management Statement
+→ Guidance
+→ Actual Outcome
+→ Competitor Event
+→ Industry Event
+→ Market Reaction
+
+Over time this could answer questions such as:
+
+> "What happened after similar announcements historically?"
+
+> "How often has management delivered on previous guidance?"
+
+> "How long does this company typically take to commission new capacity?"
+
+> "Which announcements have historically been followed by changes in revenue?"
+
+Only implement predictive features after sufficient historical data exists.
+
+Do not make unsupported predictions from limited data.
+
+---
+
+# 54. FUTURE AI AGENTS
+
+Eventually create specialized agents:
+
+### Company Research Agent
+
+### Financial Agent
+
+### Market Agent
+
+### Management Agent
+
+### Industry Agent
+
+### Competitor Agent
+
+### Regulatory Agent
+
+### News Agent
+
+### Event Detection Agent
+
+### Verification Agent
+
+### Portfolio Agent
+
+These agents should feed a common company intelligence database.
+
+---
+
+# 55. GLOBAL EXPANSION
+
+After India/USA/UK, architect for:
+
+* Europe
+* Canada
+* Australia
+* Singapore
+* Middle East
+* Japan
+* Southeast Asia
+
+Use exchange/country abstraction rather than hard-coded country-specific logic.
+
+---
+
+# 56. MONETIZATION
+
+Initial version can be free to acquire users.
+
+Future:
+
+## FREE
+
+Limited daily company research.
+
+## PRO
+
+Unlimited research
+
+Watchlists
+
+Historical intelligence
+
+Alerts
+
+Advanced research
+
+## PROFESSIONAL
+
+Research workflows
+
+Exports
+
+Advanced company comparisons
+
+API
+
+## ENTERPRISE
+
+Banks
+
+Asset managers
+
+Family offices
+
+Research departments
+
+Custom data
+
+Enterprise API
+
+Do not introduce complicated monetization until product-market fit is established.
+
+---
+
+# 57. PRODUCT METRICS
+
+Track:
+
+### Acquisition
+
+Visitors
+Signups
+
+### Engagement
+
+Companies searched
+Reports generated
+Voice reports played
+Watchlists
+
+### Retention
+
+DAU
+WAU
+MAU
+D1
+D7
+D30
+
+### Quality
+
+Company-resolution accuracy
+Citation click rate
+Source verification rate
+Report regeneration rate
+User feedback
+Search success
+Voice usage
+
+---
+
+# 58. 8-WEEK MVP ROADMAP
+
+Create a detailed implementation plan.
+
+## WEEK 1
+
+Architecture
+Database
+Project setup
+Authentication
+
+## WEEK 2
+
+Company resolution
+Exchange/company database
+
+## WEEK 3
+
+Research/search engine
+Source ingestion
+
+## WEEK 4
+
+Event extraction
+Deduplication
+Materiality
+
+## WEEK 5
+
+AI synthesis
+Citations
+Daily report
+
+## WEEK 6
+
+Management tracker
+Historical timeline
+Competitor/industry context
+
+## WEEK 7
+
+Voice input/output
+Watchlist
+UX refinement
+
+## WEEK 8
+
+Testing
+Security
+Performance
+Deployment
+Analytics
+
+Modify this schedule if technical reality requires it.
+
+---
+
+# 59. DEPLOYMENT
+
+Provide a complete deployment guide.
+
+Prefer:
+
+Dockerized application
+
+with:
+
+Frontend
++
+Backend
++
+PostgreSQL
++
+Redis/worker if required
+
+Use:
+
+* HTTPS
+* Environment variables
+* Reverse proxy
+* Automated deployment
+* Backups
+* Logging
+
+Provide exact commands where practical.
+
+---
+
+# 60. COST OPTIMIZATION
+
+Optimize API usage.
+
+Use:
+
+* Caching
+* Batch research
+* Deduplication
+* Smaller models for extraction/classification
+* Larger models only for synthesis/reasoning
+* Background processing
+* Stored event intelligence
+
+Do not use expensive LLM calls for every trivial operation.
+
+Design a model-routing strategy:
+
+### Cheap model
+
+Classification
+Extraction
+Deduplication
+
+### Strong model
+
+Research synthesis
+Complex reasoning
+
+This is important for unit economics.
+
+---
+
+# 61. LEGAL / DATA LICENSING
+
+Do not assume that because information is publicly accessible it can always be freely republished commercially.
+
+For each data source identify:
+
+* Public availability
+* API availability
+* Terms of use
+* Commercial-use restrictions
+* Licensing requirements
+* Attribution requirements
+* Rate limits
+
+Prefer official APIs and permitted data sources where available.
+
+Do not scrape sources in ways that violate their terms.
+
+---
+
+# 62. PRIVACY
+
+The initial application should not require:
+
+* Brokerage credentials
+* Bank credentials
+* Trading credentials
+
+Minimize personal information.
+
+Design for:
+
+* India DPDP requirements
+* UK GDPR
+* EU GDPR where applicable
+* US privacy requirements
+
+---
+
+# 63. FINAL DEVELOPMENT PROCESS
+
+Follow this sequence.
+
+### STEP 1
+
+Explain the architecture.
+
+### STEP 2
+
+Explain technology choices.
+
+### STEP 3
+
+Explain database schema.
+
+### STEP 4
+
+Explain research architecture.
+
+### STEP 5
+
+Explain source strategy.
+
+### STEP 6
+
+Explain regulatory considerations.
+
+### STEP 7
+
+Explain infrastructure cost.
+
+### STEP 8
+
+Create project structure.
+
+### STEP 9
+
+Implement database.
+
+### STEP 10
+
+Implement backend.
+
+### STEP 11
+
+Implement research pipeline.
+
+### STEP 12
+
+Implement event database.
+
+### STEP 13
+
+Implement AI synthesis.
+
+### STEP 14
+
+Implement frontend.
+
+### STEP 15
+
+Implement voice.
+
+### STEP 16
+
+Implement watchlist.
+
+### STEP 17
+
+Implement citations.
+
+### STEP 18
+
+Test with Kinetic Engineering.
+
+### STEP 19
+
+Fix errors.
+
+### STEP 20
+
+Deploy.
+
+---
+
+# 64. IMPORTANT DEVELOPMENT RULES
+
+Do not:
+
+* Build unnecessary enterprise infrastructure
+* Over-engineer the MVP
+* Create dozens of features before validating the core workflow
+* Assume data availability without checking
+* Invent APIs
+* Invent financial information
+* Invent company announcements
+* Hard-code one country
+* Hard-code one AI provider
+* Hard-code one exchange
+* Make unsupported investment recommendations
+
+Do:
+
+* Keep architecture modular
+* Keep costs low
+* Cache aggressively where permitted
+* Store structured events
+* Cite sources
+* Track dates
+* Track historical changes
+* Separate facts from interpretation
+* Make the system observable
+* Design for scale without paying for scale prematurely
+
+---
+
+# 65. MOST IMPORTANT PRODUCT TEST
+
+For any company, the system should be able to answer:
+
+> **"What changed?"**
+
+Then:
+
+> **"Why does it matter?"**
+
+Then:
+
+> **"Where is the company progressing?"**
+
+Then:
+
+> **"Where is it falling behind?"**
+
+Then:
+
+> **"What did management previously promise?"**
+
+Then:
+
+> **"Are those promises progressing?"**
+
+Then:
+
+> **"What is happening in the industry?"**
+
+Then:
+
+> **"What are competitors doing?"**
+
+Then:
+
+> **"What should I watch next?"**
+
+If the system cannot answer these questions from reliable public information, it should say so rather than manufacture an answer.
+
+---
+
+# 66. FINAL OBJECTIVE
+
+Build a real, deployable MVP that can be placed online on a low-cost server and tested by real users globally.
+
+The product should ultimately become:
+
+# "The AI Intelligence Layer for Public Companies"
+
+A user should not need to read:
+
+* 20 news articles
+* 5 filings
+* 3 investor presentations
+* 10 social-media posts
+* Industry news
+* Management commentary
+
+Instead, the platform should research those sources and tell the user:
+
+> **"Here are the 5–10 things that materially changed, here is the evidence, here is why they matter, here is where the company is progressing, here is what management previously said, and here is what you should watch next."**
+
+The platform informs the user's own research and investment decisions. It should not make personalized investment decisions on the user's behalf.
+
+Start by giving me:
+
+1. System architecture
+2. Recommended technology stack
+3. Database schema
+4. Agent architecture
+5. Data-source architecture
+6. API design
+7. UI wireframe
+8. 8-week implementation plan
+9. Infrastructure architecture
+10. Estimated monthly cost
+11. Regulatory/data-licensing considerations
+12. Project folder structure
+
+Then begin implementing the MVP.
+
+Do not stop at a conceptual answer. Build the application incrementally and keep the implementation deployable at every stage.
