@@ -1,0 +1,65 @@
+# Production stack for a single low-cost VPS (2 vCPU / 4 GB is comfortable; 1 vCPU / 2 GB works for testing).
+#   cp .env.example .env && edit, then: docker compose up -d --build
+services:
+  db:
+    image: postgres:16-alpine
+    restart: unless-stopped
+    environment:
+      POSTGRES_DB: companyintel
+      POSTGRES_USER: companyintel
+      POSTGRES_PASSWORD: ${POSTGRES_PASSWORD:?set POSTGRES_PASSWORD in .env}
+    volumes: [pgdata:/var/lib/postgresql/data]
+    healthcheck:
+      test: ["CMD-SHELL", "pg_isready -U companyintel"]
+      interval: 10s
+      retries: 5
+    # Not published to the host: only reachable on the internal network.
+
+  api:
+    build: ./backend
+    restart: unless-stopped
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://companyintel:${POSTGRES_PASSWORD}@db:5432/companyintel
+      APP_ENV: prod
+      RUN_JOBS_INLINE: "false"
+    depends_on: { db: { condition: service_healthy } }
+    volumes: [apidata:/app/data]
+    healthcheck:
+      test: ["CMD", "python", "-c", "import urllib.request;urllib.request.urlopen('http://localhost:8000/api/health')"]
+      interval: 30s
+
+  worker:
+    build: ./backend
+    restart: unless-stopped
+    command: ["python", "-m", "app.worker"]
+    env_file: .env
+    environment:
+      DATABASE_URL: postgresql+psycopg://companyintel:${POSTGRES_PASSWORD}@db:5432/companyintel
+      APP_ENV: prod
+      RUN_JOBS_INLINE: "false"
+    depends_on: { db: { condition: service_healthy } }
+    volumes: [apidata:/app/data]
+
+  web:
+    build: { context: ./frontend, args: { BACKEND_URL: "http://api:8000" } }
+    restart: unless-stopped
+    environment: { BACKEND_URL: "http://api:8000" }
+    depends_on: [api]
+
+  caddy:
+    image: caddy:2-alpine
+    restart: unless-stopped
+    ports: ["80:80", "443:443", "443:443/udp"]
+    environment: { DOMAIN: "${DOMAIN:?set DOMAIN in .env}" }
+    volumes:
+      - ./deploy/Caddyfile:/etc/caddy/Caddyfile:ro
+      - caddydata:/data
+      - caddyconfig:/config
+    depends_on: [web, api]
+
+volumes:
+  pgdata:
+  apidata:
+  caddydata:
+  caddyconfig:

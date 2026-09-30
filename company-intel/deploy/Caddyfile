@@ -1,0 +1,25 @@
+# Automatic HTTPS (Let's Encrypt) for $DOMAIN. /api goes straight to FastAPI; everything else to Next.js.
+{$DOMAIN} {
+	encode zstd gzip
+	header {
+		Strict-Transport-Security "max-age=31536000; includeSubDomains"
+		X-Content-Type-Options nosniff
+		Referrer-Policy strict-origin-when-cross-origin
+		-Server
+	}
+	@api path /api/*
+	handle @api {
+		request_body { max_size 12MB }
+		reverse_proxy api:8000
+	}
+	handle {
+		reverse_proxy web:3000
+	}
+	log {
+		output file /data/access.log {
+			roll_size 20mb
+			roll_keep 5
+		}
+		format json
+	}
+}
